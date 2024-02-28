@@ -203,7 +203,17 @@ function loadData(ref){
 }
 
 function receiveddStock(item,size,type,quantity){
-    console.log(item,size,type,quantity);
+    let id = JSON.parse(localStorage.getItem('returnKey'));
+    let obj = {
+        id: id,
+        item: item,
+        size: size,
+        shedule: type,
+        quantity:quantity
+
+    };
+    
+    firebase.database().ref('returendStock/' + id).push(obj)
 
 }
 
@@ -318,7 +328,7 @@ $(document).ready(function(){
             alert('Please enter receiver name first');
         }else{
         localStorage.setItem('returnKey',JSON.stringify(id));
-        // firebase.database().ref('ReturendDetails/' + id).set(obj)
+        firebase.database().ref('ReturendDetails/' + id).set(obj)
         $('#button-container').show('slow');
         $('#search-stock').hide('slow');
         
