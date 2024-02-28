@@ -202,7 +202,10 @@ function loadData(ref){
     $('#loading-container').show('slow')
 }
 
+function receiveddStock(item,size,type,quantity){
+    console.log(item,size,type,quantity);
 
+}
 
 
 async function add(btn,index){
@@ -240,7 +243,7 @@ async function add(btn,index){
       quantity: item.quantity + Number(userValue.value)
     })
    }
-      returnedStock(item.itemName,item.size,item.shedule, Number(userValue.value));
+      receiveddStock(item.itemName,item.size,item.hasOwnProperty('shedule') ? item.shedule : item.UMO, Number(userValue.value));
    loadData(ref);
    })
    }
@@ -315,7 +318,7 @@ $(document).ready(function(){
             alert('Please enter receiver name first');
         }else{
         localStorage.setItem('returnKey',JSON.stringify(id));
-        firebase.database().ref('ReturendDetails/' + id).set(obj)
+        // firebase.database().ref('ReturendDetails/' + id).set(obj)
         $('#button-container').show('slow');
         $('#search-stock').hide('slow');
         

@@ -603,7 +603,8 @@ function searchResults(result, userValue) {
 }
 
 function retrunedItemsStore (){
-  console.log('working...')
+  let key = JSON.parse(localStorage.getItem('returnKey'));
+  console.log(key)
 }
 
 // Media query code is going here
