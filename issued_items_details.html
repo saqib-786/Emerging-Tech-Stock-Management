@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="min.css">
+    <link rel="icon" href="./Images/Emerging tech logo.jpg">
+    <!-- <script  src="./app.js" async></script> -->
+    <script defer src="./min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.17.2/firebase-app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.17.2/firebase-database.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <title>Emerging Tech</title>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBgqY1_sBCx0FqO0sbH5nrjifH3uu-NNPI",
+            authDomain: "emerging-tech-68263.firebaseapp.com",
+            databaseURL: "https://emerging-tech-68263-default-rtdb.firebaseio.com",
+            projectId: "emerging-tech-68263",
+            storageBucket: "emerging-tech-68263.appspot.com",
+            messagingSenderId: "384544810852",
+            appId: "1:384544810852:web:04125faee1e8a65981bc71",
+            measurementId: "G-QM7M7ZGYFP"
+        };
+
+        //Initialize Firebase
+        // const app  = initializeApp(firebaseConfig);      
+        firebase.initializeApp(firebaseConfig);
+        // const analytics = getAnalytics(app);
+    </script>
+</head>
+<body>
+    <div id="backdrop">
+        <div>
+            <!-- <h2>Please Wait</h2> -->
+            <img id="loading-img" src="./Images/loading (2).gif" alt="">
+        </div>
+    </div>
+    <a id="scroll-btn" href="#table-head"  class="scroll-btn">
+        <img src="./Images/arrow-144-48.png" alt="">
+    </a>
+    <nav id="nav">
+        <div>
+            <img id="logo" width="60px" height="60px" src="./Images/Emerging_tech_logo-removebg-preview.png" alt="emerging tech logo">
+            <div>
+                <h2 id="title">Emerging Tech</h2>
+                <p id="sub-title"><b>Works & Services</b></p>
+            </div>
+        </div>
+        <div style="width: 15%; position: relative; right: 15%; display: flex; flex-direction: column;">
+            
+          <h3 id="day-container"></h3>
+         <sup style="font-size: 13px;"> <b> <span id="date-container"></span>-<span id="month-container"></span>-<span id="year-container"></span></b></sup>
+            <!-- <h1 id="timer"><span id="hours-container"></span><span id="mints-container"><sup style="font-size: 16px;" id="am-pm"></sup></h1> -->
+
+        </div>
+        <div>
+          <b><span id="user-name"></span></b>
+            <!-- <span id="role">Admin</span> -->
+        </div>
+        <div>
+           <button id="menu-btn"><img id="menu-btn-img" width="32px" height="32px" src="./Images/menu.png" alt=""></button>
+           <div id="nav-container">
+            <button id="close-btn"><img width="20px" height="20px" src="./Images/close-window-24.png" alt="cloase icon"></button>
+            <ul>
+                <!-- <button id="admin-user">Login as Admin</button> -->
+                <button style="display: none;" id="user-login">Login as User</button>
+                <button onclick="stockReport()">Home</button>
+               <!-- <button onclick="darkMode();"> Dark Mode</button> -->
+               <button onclick="issuedItems();">Issued Items Details</button>
+               <button id="issue-items" disabled onclick="issueStock();">Issue Items</button>
+               <button id="returned-items" disabled onclick="returnedStock()">Add Returned Items</button>
+               <button onclick="addNewItems()" id="add-new-items" disabled="disabled">Add New Items</button>
+               <button id="add-new-user" onclick="addUserPage()" disabled="disabled">Add User</button>
+               <button onclick="logoutUser()" id="logout-user">Logout</button>
+
+            </ul>
+            
+           </div>
+        </div>
+    </nav>
+    <div id="container"></div>
+    <button onclick="window.location.href ='available_stock.html'" class="new-item-btn">Go Back</button>
+    
+</body>
+</html>
+<script>
+  
+ window.addEventListener('load',function(){
+    let backdrop = document.getElementById('backdrop');
+    // backdrop.style.display = 'flex';
+    // setTimeout(()=>{
+    //     backdrop.style.display = 'none';
+    // },2000);
+    document.getElementById('scroll-btn').style.display = 'block';
+    let container = document.getElementById('container');
+        container.innerHTML = `
+        <table id="detail-table" cellspacing="10px">
+           <thead id='table-head'>
+            <tr>
+            <th>Date</th>
+            <th>Site Name</th>
+            <th>Provider Name</th>
+            <th>Receiver Name</th>
+            <th> Items Detail</th>
+            
+            </tr>
+            </thead>
+            <tbody id='table-body'></tbody>
+        </table>
+        `  
+      
+      
+    firebase.database().ref('issuingDetails').on('value', async function(snapshot){
+        let response = await snapshot.val();
+        let dataList = [];
+        let tableBody = document.getElementById('table-body');
+        Object.values(response).forEach((item)=>{
+            let tr = document.createElement('tr');
+            let td1 = document.createElement('td');
+            let td2 = document.createElement('td');
+            let td3 = document.createElement('td');
+            let td4 = document.createElement('td');
+            let td5 = document.createElement('td');
+            td1.innerText = item.issueDate;
+            td2.innerText = item.siteName;
+            td3.innerText = item.providerName;
+            td4.innerText = item.reveiverName;
+            td5.innerHTML = `<button style="margin:0px auto" class='new-item-btn' onclick="itemsDetails(${item.id})">Details</button>`;
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tr.appendChild(td3);
+            tr.appendChild(td4);
+            tr.appendChild(td5);
+            tableBody.appendChild(tr)
+            
+
+          
+            
+        });
+        // console.log(dataList)
+        
+       
+    });
+
+    
+ })
+</script>

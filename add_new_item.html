@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="min.css">
+    <link rel="icon" href="./Images/Emerging tech logo.jpg">
+    <script defer src="./app.js"></script>
+    <script defer src="./min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.17.2/firebase-app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.17.2/firebase-database.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBgqY1_sBCx0FqO0sbH5nrjifH3uu-NNPI",
+            authDomain: "emerging-tech-68263.firebaseapp.com",
+            databaseURL: "https://emerging-tech-68263-default-rtdb.firebaseio.com",
+            projectId: "emerging-tech-68263",
+            storageBucket: "emerging-tech-68263.appspot.com",
+            messagingSenderId: "384544810852",
+            appId: "1:384544810852:web:04125faee1e8a65981bc71",
+            measurementId: "G-QM7M7ZGYFP"
+        };
+    
+        //Initialize Firebase
+        // const app  = initializeApp(firebaseConfig);      
+        firebase.initializeApp(firebaseConfig);
+        // const analytics = getAnalytics(app);
+    </script>
+    <title>Emerging Tech</title>
+</head>
+<body>
+    <nav id="nav">
+        <div>
+            <img id="logo" width="60px" height="60px" src="./Images/Emerging_tech_logo-removebg-preview.png" alt="emerging tech logo">
+            <div>
+                <h2 id="title">Emerging Tech</h2>
+                <p id="sub-title"><b>Works & Services</b></p>
+            </div>
+        </div>
+        <div style="width: 15%; position: relative; right: 15%; display: flex; flex-direction: column;">
+            
+          
+            <!-- <h1><span id="hours-container"></span><span id="mints-container"><sup style="font-size: 16px;" id="am-pm"></sup></h1> -->
+                <h3 id="day-container"></h3>
+                <sup style="font-size: 13px;"> <b> <span id="date-container"></span>-<span id="month-container"></span>-<span id="year-container"></span></b></sup>
+
+        </div>
+        <div>
+            <b>  <span id="user-name"></span></b>
+            <!-- <span id="role">Admin</span> -->
+        </div>
+        <div>
+           <button id="menu-btn"><img id="menu-btn-img" width="32px" height="32px" src="./Images/menu.png" alt=""></button>
+           <div id="nav-container">
+            <button id="close-btn"><img width="20px" height="20px" src="./Images/close-window-24.png" alt="cloase icon"></button>
+            <ul>
+                 <!-- <button id="admin-user">Login as Admin</button> -->
+                 <button style="display: none;" id="user-login">Login as User</button>
+                 <button onclick="stockReport()">Home</button>
+                <!-- <button onclick="darkMode();"> Dark Mode</button> -->
+                <button onclick="issuedItems();">Issued Items Details</button>
+                <button id="issue-items" disabled onclick="issueStock();">Issue Items</button>
+                <button id="returned-items" disabled onclick="returnedStock()">Add Returned Items</button>
+                <button id="add-new-items" disabled="disabled">Add New Items</button>
+                <button id="add-new-user" onclick="addUserPage()" disabled="disabled">Add User</button>
+                <button onclick="logoutUser()" id="logout-user">Logout</button>
+
+            </ul>
+           </div>
+        </div>
+    </nav>
+    <div class="add_item">
+        <h2 id="search-stock">Add New Items</h2>
+      <div id="search-container">
+        <!-- <form action="">
+            <input  placeholder="Search Item" type="search" name="" id="search-bar">
+            <input type="button" value="Search" name="" id="search-btn">
+        </form> -->
+      </div>
+      <select name="" id="add_new_item">
+        <option value="">Select Item Type First</option>
+        <option value="PVC">PVC Item</option>
+        <option value="Bush">Bush</option>
+        <option value="RO">RO Item</option>
+        <option value="Electrical">Electrical Items</option>
+    </select>
+    </div>
+    <div id="container"></div>
+</body>
+</html>
+
+<script>
+let entryType = document.getElementById('add_new_item');
+entryType.addEventListener('change',function(){
+    let container = document.getElementById('container')
+    if(entryType.value === 'PVC'){
+        container.innerHTML = `<div class='new-item-container'>
+            <h2>Add New PVC Item</h2>
+           <form onsubmit="event.preventDefault();" id="form">
+            <table>
+                <tr>
+                    <td>ITEM NAME</td>
+                    <td><input class="new-pvc" id="item-name" placeholder="Enter Item Name" required></td>
+                    <td>SHEDULE</td>
+                    <td>
+                    <select class='new-pvc' id='shedule' required>
+                    <option value="">Shedule</option>    
+                    <option value="40">40</option>    
+                    <option value="80">80</option>    
+                    </select>
+                    </td>
+                </tr>
+          
+                <tr>
+                    <td> ITEM SIZE</td>
+                    <td>
+                    <select class='new-pvc' id="size" required>
+                        <option value="">Select Size</option>
+                        <option value='1/4'>1/4</option>
+                        <option value='3/4'>3/4</option>
+                        <option value='1'>1</option>
+                        <option value='1.1/4'>1.1/4</option>
+                        <option value='1.5'>1.5</option>
+                        <option value='2'>2</option>
+                        <option value='3'>3</option>
+                        <option value='4'>4</option>
+                        <option value='6'>6</option>
+                        <option value='8'>8</option>
+                    </select>
+                    </td>
+                    <td>QUANTITY</td>
+                    <td><input placeholder='Enter quantity' class='new-pvc' id='quantity' required type="number"></td>
+                </tr>
+                
+            </table>
+            <input class='new-item-btn' onclick="addPVCItem();" type="submit">
+            </form>
+            </div>`
+        
+    }else if(entryType.value === 'RO' ){
+        container.innerHTML = `
+        <div class='new-item-container'>
+            <h2>Add New RO Item</h2>
+           <form onsubmit="event.preventDefault();" id="form">
+            <table>
+                <tr>
+                    <td>ITEM NAME</td>
+                    <td><input class='new-pvc' id="item-name" placeholder="Enter Item Name" required></td>
+                    <td>SIZE</td>
+                    <td><input class='new-pvc' id='size' required placeholder="Enter Item Name" type='text'></td>
+                </tr>
+             
+                <tr>
+                 
+                </tr>
+                <tr>
+                    <td>QUANTITY</td>
+                    <td colspan='1'><input placeholder='Enter Item Quantity' class='new-pvc large-input' id='quantity' required type="number"></td>
+                    
+
+                </tr>
+            </table>
+            <input class='new-item-btn' onclick="addPVCItem();" type="submit">
+            </form>
+            </div>
+        `
+    }else if(entryType.value === 'Electrical'){
+        container.innerHTML = `
+        <div class='new-item-container'>
+            <h2>Add New Electrical Item</h2>
+           <form onsubmit="event.preventDefault();" id="form">
+            <table>
+                <tr>
+                    <td>ITEM NAME</td>
+                    <td><input class='new-pvc' placeholder='Enter Item Name' /></td>
+                    <td>SIZE</td>
+                    <td><input class='new-pvc' placeholder='Enter Item Size' />
+                </tr>
+                <tr>
+                    <td> QUANTITY</td>
+                    <td><input class='new-pvc' placeholder='Enter Item Quantity'/>
+                </tr>
+            </table>
+            <input class='new-item-btn' type='submit'/>
+            </form>
+            </div>
+        `
+    }else if(entryType.value === 'Bush'){
+        container.innerHTML = `<div class='new-item-container'>
+            <h2>Add Bush to PVC Items</h2>
+           <form onsubmit="event.preventDefault();" id="form">
+            <table>
+                <tr>
+                    <td>ITEM NAME</td>
+                    <td><input class="new-pvc" id="item-name" placeholder="Enter Item Name" required></td>
+                    <td>SHEDULE</td>
+                    <td>
+                    <select class='new-pvc' id='shedule' required>
+                    <option value="">Shedule</option>    
+                    <option value="40">40</option>    
+                    <option value="80">80</option>    
+                    </select>
+                    </td>
+                </tr>
+          
+                <tr>
+                    <td> ITEM SIZE</td>
+                    <td>
+                    <select class='new-pvc' id="size" required>
+                        <option value="">Select Size</option>
+                        <option value='3/4X1/2'>3/4X1/2</option>
+                        <option value='1X1/4'>1X1/4</option>
+                        <option value='1X1/2'>1X1/2</option>
+                        <option value='1X1.1/4'>1X1.1/4</option>
+                        <option value='1.5X1/2'>1.5X1/2</option>
+                        <option value='1.5X1'>1.5X1</option>
+                        <option value='1.5X1.1/4'>1.5X1.1/4</option>
+                        <option value='2X1/2'>2X1/2</option>
+                        <option value='2X3/4'>2X3/4</option>
+                        <option value='2X1'>2X1</option>
+                        <option value='2X1'>2X1</option>
+                        <option value='2X1.1/4'>2X2X1.1/4</option>
+                        <option value='2X1.5'>2X1.5</option>
+                        <option value='3X2'>3X2</option>
+                        <option value='4X3'>4X3</option>
+                    </select>
+                    </td>
+                    <td>QUANTITY</td>
+                    <td><input placeholder='Enter quantity' class='new-pvc' id='quantity' required type="number"></td>
+                </tr>
+                
+            </table>
+            <input class='new-item-btn' onclick="addPVCItem();" type="submit">
+            </form>
+            </div>`
+
+    }
+        
+    
+
+});
+
+function addPVCItem(){
+    let itemName = document.getElementById('item-name');
+    let itemShedule = document.getElementById('shedule');
+    let size = document.getElementById('size');
+    let quantity = document.getElementById('quantity');
+    if(itemName.value === ''){
+        alert('Please Enter the Item Name first!');
+    }else if(shedule.value === ''){
+        alert('Please Select the Shedule first!');
+    }else if(size.value === ''){
+        alert('Please Enter the Size first!');
+    }else if(quantity.value === ''){
+        alert('Please Enter the Quantity first!');
+    }else{
+        firebase.database().ref('Stock').once('value', async function(snapshot){
+            let response = snapshot.val();
+            let matchFound = false;
+            try{
+                response.forEach((item)=>{
+                if(item.itemName === itemName.value && item.shedule === itemShedule.value && item.size === size.value){
+                    matchFound = true;
+                    throw new Error(`${itemName.value} by size ${size.value} already exists!`);
+                    // alert(`${itemName.value} by size ${size.value} already exists!`);
+                    
+                    
+                }
+            });
+            }catch(err){
+                alert(err)
+            }
+            if(matchFound === false){
+            if(confirm('Are you really want to add this item to stock')){
+                let id = snapshot.val().length + 1;
+                let key = snapshot.val().length;
+                let obj = {
+                    id: id,
+                    itemName: itemName.value,
+                    quantity:quantity.value,
+                    shedule:itemShedule.value,
+                    size: size.value
+
+                }
+                firebase.database().ref('Stock/' + key).set(obj);
+            }                
+            }
+        })
+        
+            
+};
+}
+
+</script>

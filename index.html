@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="min.css">
+    <link rel="icon" href="./Images/Emerging tech logo.jpg">
+    <!-- <script defer src="./app.js"></script> -->
+    <script defer src="./min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.17.2/firebase-app.js"></script>
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.17.2/firebase-database.js"></script>
+    <script>
+        const firebaseConfig = {
+          apiKey: "AIzaSyBgqY1_sBCx0FqO0sbH5nrjifH3uu-NNPI",
+          authDomain: "emerging-tech-68263.firebaseapp.com",
+          databaseURL: "https://emerging-tech-68263-default-rtdb.firebaseio.com",
+          projectId: "emerging-tech-68263",
+          storageBucket: "emerging-tech-68263.appspot.com",
+          messagingSenderId: "384544810852",
+          appId: "1:384544810852:web:04125faee1e8a65981bc71",
+          measurementId: "G-QM7M7ZGYFP"
+        };
+      
+        //Initialize Firebase
+        // const app  = initializeApp(firebaseConfig);      
+         firebase.initializeApp(firebaseConfig);
+        // const analytics = getAnalytics(app);
+      </script>
+    <title>Emerging Tech</title>
+</head> 
+<body class="" id="body">
+    <div id="backdrop">
+        <div>
+            <!-- <h2>Please Wait</h2> -->
+            <img id="loading-img" src="./Images/loading (2).gif" alt="">
+        </div>
+    </div>
+    <nav id="nav">
+        <div>
+            <img id="logo" width="60px" height="60px" src="./Images/Emerging_tech_logo-removebg-preview.png" alt="emerging tech logo">
+            <div>
+                <h2 id="title">Emerging Tech</h2>
+                <p id="sub-title"><b>Works & Services</b></p>
+            </div>
+        </div>
+        <div  style="width: 15%; position: relative; right: 15%; display: flex; flex-direction: column;">
+            
+            <h3 id="day-container"></h3>
+           <sup id="date-time-container" style="font-size: 13px;"> <b> <span id="date-container"></span>-<span id="month-container"></span>-<span id="year-container"></span></b></sup>
+              <!-- <h1 id="timer"><span id="hours-container"></span><span id="mints-container"><sup style="font-size: 16px;" id="am-pm"></sup></h1> -->
+  
+          </div>
+          <div>
+              <span id="user-name"><b></b></span>
+          </div>
+        <div>
+           <button id="menu-btn"><img id="menu-btn-img" width="32px" height="32px" src="./Images/menu.png" alt=""></button>
+           <div id="nav-container">
+            <button id="close-btn"><img width="20px" height="20px" src="./Images/close-window-24.png" alt="cloase icon"></button>
+            <ul>
+                 <button id="admin-user">Login as Admin</button>
+                 <button style="display: none;" id="user-login">Login as User</button>
+                <button onclick="userActivation()">User Activation</button>
+                 <button onclick="stockReport()">Stock Report</button>
+                <!-- <button onclick="darkMode();"> Dark Mode</button> -->
+                <button disabled="disabled" onclick="issueStock();">Issue Items</button>
+                <button disabled="disabled">Add New Items</button>
+                <button id="logout-user">Logout</button>
+
+            </ul>
+            <!-- <button></button> -->
+           </div>
+        </div>
+    </nav>
+    <div id="login-container">
+  
+        <!--Login Form  -->
+        <div id="first-container">
+        <h2 class="login">User Login</h2>
+            <form onsubmit="event.preventDefault();" action="">
+                        <input required class="user-input" placeholder="Enter your Email" type="email" name="" id="user-email">
+                       <!-- <span>This Field is required</span> -->
+                        <input required class="user-input password-input" placeholder="Enter your Password" type="password" name="" id="user-password">
+                        <img onclick="showPassword()" id="password-icon" src="./Images/eye.png" alt="">
+                <button onclick="userLogin()" type="submit" class="login-btn">Login</button>
+            </form>
+        </div>
+        <!--Sign up form-->
+        <div id="second-container">
+            <h2 class="login">Admin Login</h2>
+            <form onsubmit="event.preventDefault();" action="">
+                <input placeholder="Enter your Email" class="user-input" type="email" name="" id="admin-email">
+                <input placeholder="Enter your Password" class="user-input" type="password" name="" id="admin-password">
+                <img onclick="showAdminPassword()" id="password-icon" src="./Images/eye.png" alt="">
+                <button  type="submit" class="login-btn">Login</button>
+            </form>
+        </div>
+    </div>
+    <footer>
+        <span id="line"></span>
+        <br>
+        <span id="footer-text">&copy; Emerging Tech All Rights Reserved <span id="footer-year"></span></span>
+    </footer>
+</body>
+</html>
+
+<script>
+    let userEmail = document.getElementById('user-password');
+
+userEmail.addEventListener('input',function(){
+let passwordIcon = document.getElementById('password-icon');
+if(userEmail.value.length > 0 ){
+    passwordIcon.style.display = 'block';
+}else{
+    passwordIcon.style.display = 'none';
+}
+
+    
+})
+
+$(document).ready(function(){
+    $('#menu-btn').click(function(){
+  $('#nav-container').show('slow');
+
+  $('#close-btn').click(function(){
+  $('#nav-container').hide('slow');
+})
+
+
+});
+
+
+});
+
+
+
+</script>
