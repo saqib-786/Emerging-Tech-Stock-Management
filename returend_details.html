@@ -3,9 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.17.2/firebase-app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.17.2/firebase-database.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="min.css">
+    <link rel="icon" href="./Images/Emerging tech logo.jpg">
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBgqY1_sBCx0FqO0sbH5nrjifH3uu-NNPI",
+            authDomain: "emerging-tech-68263.firebaseapp.com",
+            databaseURL: "https://emerging-tech-68263-default-rtdb.firebaseio.com",
+            projectId: "emerging-tech-68263",
+            storageBucket: "emerging-tech-68263.appspot.com",
+            messagingSenderId: "384544810852",
+            appId: "1:384544810852:web:04125faee1e8a65981bc71",
+            measurementId: "G-QM7M7ZGYFP"
+        };
+    
+        //Initialize Firebase
+        // const app  = initializeApp(firebaseConfig);      
+        firebase.initializeApp(firebaseConfig);
+        // const analytics = getAnalytics(app);
+    </script>
+    
+    <title>Emerging Tech</title>
 </head>
 <body>
-    
+    <div>
+        <button onclick="purchased()">Purchased</button>
+        <button onclick="siteReturend()"> Site Returend</button>
+    </div>
+    <table id="table">
+        <thead id="table-head"></thead>
+        <tbody id="table-body"></tbody>
+    </table>
 </body>
 </html>
+<script>
+  const siteReturend = ()=>{
+    firebase.database().ref('ReturendDetails').once('value', async (snapshot)=>{
+        let tableHead = document.getElementById('table-head');
+        let tableBody = document.getElementById('table-body');
+        let headerArray = ['S NO', 'Returend Date', 'Site Name', 'Provider Name', 'Receiver Name','Details'];
+        let tr = document.createElement('tr');
+        headerArray.forEach((item)=>{
+            tableHead.innerHTML = '';
+            let td = document.createElement('td');
+            td.innerText = item;
+            tr.appendChild(td);
+            
+            
+        });
+        tableHead.appendChild(tr)
+
+        let response = await snapshot.val();
+      let data = Object.values(response).filter((item)=> item.hasOwnProperty('siteName'));
+      let TR = document.createElement('tr');
+
+      data.forEach((item,index)=>{
+        tableBody.innerHTML = '';
+        let td1 = document.createElement('td');
+        td1.innerText = index + 1;
+        let td2 = document.createElement('td');
+        td2.innerText = item.returendDate;
+        let td3 = document.createElement('td');
+        td3.innerText = item.siteName;
+        let td4 = document.createElement('td');
+        td4.innerText = item.providerName;
+        let td5 = document.createElement('td');
+        td5.innerText = item.receiverName;
+        let td6 = document.createElement('td');
+        td6.innerHTML = `<button>Details</button>`
+        TR.appendChild(td1);
+        TR.appendChild(td2);
+        TR.appendChild(td3);
+        TR.appendChild(td4);
+        TR.appendChild(td5);
+        TR.appendChild(td6);
+      });
+
+      tableBody.appendChild(TR)
+        
+
+    })
+  }
+
+  const purchased = ()=>{
+    firebase.database().ref('ReturendDetails').once('value', async (snapshot)=>{
+        let tableHead = document.getElementById('table-head');
+        let tableBody = document.getElementById('table-body');
+        let headerArray = ['S NO', 'Purchased Date', "Purchaser Name", 'Provider Name', 'Receiver Name','Details'];
+        let tr = document.createElement('tr');
+        headerArray.forEach((item)=>{
+            tableHead.innerHTML = '';
+            let td = document.createElement('td');
+            td.innerText = item;
+            tr.appendChild(td);
+            
+            
+        });
+        tableHead.appendChild(tr)
+        let response = await snapshot.val();
+        let data = Object.values(response).filter((item,)=> item.hasOwnProperty('purchaser'));
+        let TR = document.createElement('tr');
+        data.forEach((item,index)=>{
+            tableBody.innerHTML = '';
+        let td1 = document.createElement('td');
+        td1.innerText = index + 1;
+        let td2 = document.createElement('td');
+        td2.innerText = item.returendDate;
+        let td3 = document.createElement('td');
+        td3.innerText = item.purchaser;
+        let td4 = document.createElement('td');
+        td4.innerText = item.providerName;
+        let td5 = document.createElement('td');
+        td5.innerText = item.receiverName;
+        let td6 = document.createElement('td');
+        td6.innerHTML = `<button>Details</button>`
+        TR.appendChild(td1);
+        TR.appendChild(td2);
+        TR.appendChild(td3);
+        TR.appendChild(td4);
+        TR.appendChild(td5);
+        TR.appendChild(td6);
+        console.log(item)
+            
+        });
+        tableBody.appendChild(TR)
+    })
+  }
+</script>
