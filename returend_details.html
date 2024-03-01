@@ -33,7 +33,7 @@
         <button onclick="purchased()">Purchased</button>
         <button onclick="siteReturend()"> Site Returend</button>
     </div>
-    <table id="table">
+    <table id="issue-table">
         <thead id="table-head"></thead>
         <tbody id="table-body"></tbody>
     </table>
@@ -48,9 +48,9 @@
         let tr = document.createElement('tr');
         headerArray.forEach((item)=>{
             tableHead.innerHTML = '';
-            let td = document.createElement('td');
-            td.innerText = item;
-            tr.appendChild(td);
+            let th = document.createElement('th');
+            th.innerText = item;
+            tr.appendChild(th);
             
             
         });
@@ -73,7 +73,7 @@
         let td5 = document.createElement('td');
         td5.innerText = item.receiverName;
         let td6 = document.createElement('td');
-        td6.innerHTML = `<button>Details</button>`
+        td6.innerHTML = `<button class="add-btn" onclick="getKey(${item.id})">Details</button>`
         TR.appendChild(td1);
         TR.appendChild(td2);
         TR.appendChild(td3);
@@ -96,9 +96,9 @@
         let tr = document.createElement('tr');
         headerArray.forEach((item)=>{
             tableHead.innerHTML = '';
-            let td = document.createElement('td');
-            td.innerText = item;
-            tr.appendChild(td);
+            let th = document.createElement('th');
+            th.innerText = item;
+            tr.appendChild(th);
             
             
         });
@@ -119,17 +119,21 @@
         let td5 = document.createElement('td');
         td5.innerText = item.receiverName;
         let td6 = document.createElement('td');
-        td6.innerHTML = `<button>Details</button>`
+        td6.innerHTML = `<button class="add-btn" onclick="getKey(${item.id})">Details</button>`
         TR.appendChild(td1);
         TR.appendChild(td2);
         TR.appendChild(td3);
         TR.appendChild(td4);
         TR.appendChild(td5);
         TR.appendChild(td6);
-        console.log(item)
+        
             
         });
         tableBody.appendChild(TR)
     })
+  }
+  function getKey(id){
+    console.log(id)
+
   }
 </script>
