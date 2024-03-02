@@ -5,8 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.17.2/firebase-app.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.17.2/firebase-database.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="min.css">
+    <script defer src="./app.js"></script>
+    <script defer src="./min.js"></script>
     <link rel="icon" href="./Images/Emerging tech logo.jpg">
     <script>
         const firebaseConfig = {
@@ -26,13 +30,68 @@
         // const analytics = getAnalytics(app);
     </script>
     
+    <style>
+        .details-btn{
+
+        }
+    </style>
+
     <title>Emerging Tech</title>
 </head>
 <body>
-    <div>
-        <button onclick="purchased()">Purchased</button>
-        <button onclick="siteReturend()"> Site Returend</button>
+    <nav id="nav">
+        <div>
+            <img width="60px" height="60px" src="./Images/Emerging_tech_logo-removebg-preview.png" alt="emerging tech logo">
+            <div>
+                <h2 id="title">Emerging Tech</h2>
+                <p id="sub-title"><b>Works & Services</b></p>
+            </div>
+        </div>
+        <div style="width: 15%; position: relative; right: 15%; display: flex; flex-direction: column;">
+            
+          
+            <!-- <h1><span id="hours-container"></span><span id="mints-container"><sup style="font-size: 16px;" id="am-pm"></sup></h1> -->
+                <h3 id="day-container"></h3>
+                <sup style="font-size: 13px;"> <b> <span id="date-container"></span>-<span id="month-container"></span>-<span id="year-container"></span></b></sup>
+
+        </div>
+        <div>
+            <b><span id="user-name"></span></b>
+            <!-- <span id="role">Admin</span> -->
+        </div>
+        
+        <div>
+           <button id="menu-btn"><img id="menu-btn-img" width="32px" height="32px" src="./Images/menu.png" alt=""></button>
+           <div id="nav-container">
+            <button id="close-btn"><img width="20px" height="20px" src="./Images/close-window-24.png" alt="cloase icon"></button>
+            <ul>
+                <!-- <button id="admin-user">Login as Admin</button> -->
+                <button style="display: none;" id="user-login">Login as User</button>
+                <button onclick="stockReport()">Home</button>
+               <!-- <button onclick="darkMode();"> Dark Mode</button> -->
+               <button onclick="issuedItems();">Issued Items Details</button>
+               <button id="issue-items" disabled onclick="issueStock();">Issue Items</button>
+               <button id="returned-items" disabled onclick="returnedStock()">Add Returned Items</button>
+               <button id="back-to-store" disabled onclick="retrunedItemsStore()">Returned to Store </button>
+               <button onclick="addNewItems()" id="add-new-items" disabled="disabled">Add New Items</button>
+               <button id="add-new-user" onclick="addUserPage()" disabled="disabled">Add User</button>
+               <button onclick="logoutUser()" id="logout-user">Logout</button>
+
+            </ul>
+            <!-- <button>hi</button> -->
+           </div>
+        </div>
+    </nav>
+    <div id="search">
+        <div>
+        <h2 id="heading">Returend Details</h2>
+        </div>
+      <div>
+            <button class="stock-btn" onclick="purchased()">Purchased</button>
+            <button class="stock-btn" onclick="siteReturend()"> Site Returend</button>
+      </div>
     </div>
+    
     <table id="issue-table">
         <thead id="table-head"></thead>
         <tbody id="table-body"></tbody>
@@ -73,7 +132,7 @@
         let td5 = document.createElement('td');
         td5.innerText = item.receiverName;
         let td6 = document.createElement('td');
-        td6.innerHTML = `<button class="add-btn" onclick="getKey(${item.id})">Details</button>`
+        td6.innerHTML = `<button class="add-btn" onclick='getItemKey(${item.id})'>Details</button>`
         TR.appendChild(td1);
         TR.appendChild(td2);
         TR.appendChild(td3);
@@ -119,7 +178,7 @@
         let td5 = document.createElement('td');
         td5.innerText = item.receiverName;
         let td6 = document.createElement('td');
-        td6.innerHTML = `<button class="add-btn" onclick="getKey(${item.id})">Details</button>`
+        td6.innerHTML = `<button class="add-btn" onclick='getItemKey(${item.id})'>Details</button>`
         TR.appendChild(td1);
         TR.appendChild(td2);
         TR.appendChild(td3);
@@ -132,7 +191,9 @@
         tableBody.appendChild(TR)
     })
   }
-  function getKey(id){
+  
+  function getItemKey(id){
+    // window.location.href = 'returend_item.html'
     console.log(id)
 
   }

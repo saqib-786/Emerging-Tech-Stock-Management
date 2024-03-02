@@ -603,8 +603,9 @@ function searchResults(result, userValue) {
 }
 
 function retrunedItemsStore (){
-  let key = JSON.parse(localStorage.getItem('returnKey'));
-  console.log(key)
+  // let key = JSON.parse(localStorage.getItem('returnKey'));
+  // console.log(key)
+  window.location.href = 'returend_details.html';
 }
 
 // Media query code is going here
