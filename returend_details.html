@@ -30,11 +30,7 @@
         // const analytics = getAnalytics(app);
     </script>
     
-    <style>
-        .details-btn{
-
-        }
-    </style>
+   
 
     <title>Emerging Tech</title>
 </head>
@@ -193,8 +189,9 @@
   }
   
   function getItemKey(id){
-    // window.location.href = 'returend_item.html'
-    console.log(id)
+    JSON.stringify(localStorage.setItem('returendItemKey',id))
+    window.location.href = 'returend_item.html'
+    // console.log(id)
 
   }
 </script>
