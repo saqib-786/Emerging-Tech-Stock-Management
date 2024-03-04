@@ -239,7 +239,7 @@ function userEmailConfirmation() {
             backdrop.style.display = "flex";
             setTimeout(() => {
               backdrop.style.display = "none";
-            }, 3000);
+            }, 2000);
             activationContainer.innerHTML = `
                 <form onsubmit="event.preventDefault()">
                 <h3>User Activation</h3>
@@ -248,14 +248,12 @@ function userEmailConfirmation() {
                 <td>Password</td>
                 <td>
                 <input id="password" class="activation-input new-pvc" required type="password" placeholder="Password">
-                <img src="./Images/eye.png" />
                 </td>
                 <tr>
                 <tr>
                 <td>Confirm <br> Password</td>
                 <td>
                 <input id="confirmPassword" class="activation-input new-pvc" required type="password" placeholder=" Confirm Password">
-                <img src="./Images/eye.png" />
                 </td>
                 </tr>
                 <table>
@@ -276,6 +274,7 @@ var ID = null;
 function getKey(id) {
   ID = id;
 }
+
 
 function userPasswordConfirmation() {
   let password = document.getElementById("password");

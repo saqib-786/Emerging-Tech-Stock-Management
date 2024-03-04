@@ -108,11 +108,11 @@ html{
   
 }
 tbody tr:nth-child(even){
-    background-color:#C7DBD2;
+    /* background-color:#C7DBD2; */
     margin: 10px;
 }
 tbody tr:nth-child(odd){
-background-color: #D1E7DD;
+/* background-color: #D1E7DD; */
 }
 
 
@@ -243,7 +243,7 @@ background-color: #D1E7DD;
 #new-user-container div,#activation-container{
     border: 1px solid rgb(76, 0, 255);
     min-width: 500px;
-    height: 250px;
+    min-height: 260px;
     border-radius: 5px;
     padding: 5px;
     box-shadow: 6px 9px 5px -1px rgba(27, 26, 26, 0.21);
@@ -265,7 +265,8 @@ background-color: #D1E7DD;
     width:220px;
 }
 #new-user-container h2, #activation-container h2{
-    margin: 0px 20px
+    margin: 0px 20px;
+    padding: 10px 0px;
 }
 .stock-btn{
     width: auto;
@@ -289,4 +290,17 @@ background-color: #D1E7DD;
     border: none;
     cursor: pointer;
     display: none;
+}
+#password-icon1{
+    display: none;
+}
+#password-icon2{
+    display: none;
+}
+#password-icon1, #password-icon2{
+    width: 24px;
+    height: 24px;
+    position: relative;
+    top: 9px;
+    right: 40px;
 }
