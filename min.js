@@ -100,7 +100,6 @@ function userLogin(event) {
       });
       if (matchFound === false) {
         alert("Sorry incorrect email or password");
-        userEmail.value = "";
         userPassword.value = "";
         passwordIcon.style.display = "none";
       }
