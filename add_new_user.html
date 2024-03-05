@@ -60,18 +60,21 @@
            <div id="nav-container">
             <button id="close-btn"><img width="20px" height="20px" src="./Images/close-window-24.png" alt="cloase icon"></button>
             <ul>
-              <!-- <button id="admin-user">Login as Admin</button> -->
-              <button style="display: none;" id="user-login">Login as User</button>
-              <button onclick="stockReport()">Home</button>
-             <!-- <button onclick="darkMode();"> Dark Mode</button> -->
-             <button onclick="issuedItems();">Issued Items Details</button>
-             <button id="issue-items" disabled onclick="issueStock();">Issue Items</button>
-             <button id="returned-items" disabled onclick="returnedStock()">Add Returned Items</button>
-             <button onclick="addNewItems()" id="add-new-items" disabled="disabled">Add New Items</button>
-             <button id="add-new-user" onclick="addUserPage()" disabled="disabled">Add User</button>
-             <button onclick="logoutUser()" id="logout-user">Logout</button>
+                <!-- <button id="admin-user">Login as Admin</button> -->
+                <button style="display: none;" id="user-login">Login as User</button>
+                <button onclick="stockReport()">Home</button> 
+                <button onclick="PVCStock()" class="hidden-btn">PVC Stock</button>
+                <button onclick="ROStock()" class="hidden-btn">RO Stock</button>
+               <button onclick="electricalStock()" class="hidden-btn">Electrical Stock</button>
+               <button onclick="issuedItems();">Issued Items Details</button>
+               <button id="issue-items" disabled onclick="issueStock();">Issue Items</button>
+               <button id="returned-items" disabled onclick="returnedStock()">Add to Stock</button>
+               <button id="back-to-store" disabled onclick="retrunedItemsStore()">Returned to Store </button>
+               <button onclick="addNewItems()" id="add-new-items" disabled="disabled">Add New Items</button>
+               <button id="add-new-user" onclick="addUserPage()" disabled="disabled">Add User</button>
+               <button onclick="logoutUser()" id="logout-user">Logout</button>
 
-            </ul>
+           </ul>
             <!-- <button></button> -->
            </div>
         </div>

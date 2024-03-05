@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="min.css">
     <link rel="icon" href="./Images/Emerging tech logo.jpg">
-    <!-- <script defer src="./app.js"></script> -->
+    <script defer src="./app.js"></script>
+    <script defer src="./min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.17.2/firebase-app.js"></script>
@@ -62,36 +63,35 @@
                 <p id="sub-title"><b>Works & Services</b></p>
             </div>
         </div>
-        <div style="width: 10%; position: relative; right: 26%;">
-            
-          
-            <h1 id="timer"><span id="hours-container"></span><span id="mints-container"><sup style="font-size: 16px;" id="am-pm"></sup></h1>
-            
-            <!-- <b><span id="day"></span></b>
-            <b><span id="month"></span> </b>
-            <b>  <span id="date"></span></b>
-            <b><span id="year"></span></b>
-            <span id="mints"></span>   -->
-
-        </div>
+        <div style="width: 15%; position: relative; right: 15%; display: flex; flex-direction: column;">
+            <h3 id="day-container"></h3>
+            <sup style="font-size: 13px;"> <b> <span id="date-container"></span>-<span id="month-container"></span>-<span id="year-container"></span></b></sup>
+    </div>
+    <div>
+        <b><span id="user-name"></span></b>
+        <!-- <span id="role">Admin</span> -->
+    </div>
         <div>
            <button id="menu-btn"><img id="menu-btn-img" width="32px" height="32px" src="./Images/menu.png" alt=""></button>
            <div id="nav-container">
             <button id="close-btn"><img width="20px" height="20px" src="./Images/close-window-24.png" alt="cloase icon"></button>
             <ul>
-                 <!-- <button id="admin-user">Login as Admin</button> -->
-                 <button style="display: none;" id="user-login">Login as User</button>
-                 <button onclick="stockReport()">Home</button>
-                <!-- <button onclick="darkMode();"> Dark Mode</button> -->
-                <button onclick="issuedItems();">Issued Items Details</button>
-                <button id="issue-items" disabled onclick="issueStock();">Issue Items</button>
-                <button id="returned-items" disabled onclick="returnedStock()">Add Returned Items</button>
-                <button id="returned-items" disabled onclick="returnedStock()">Returned to Store </button>
-                <button onclick="addNewItems()" id="add-new-items" disabled="disabled">Add New Items</button>
-                <button id="add-new-user" onclick="addUserPage()" disabled="disabled">Add User</button>
-                <button onclick="logoutUser()" id="logout-user">Logout</button>
+                <!-- <button id="admin-user">Login as Admin</button> -->
+                <button style="display: none;" id="user-login">Login as User</button>
+                <button onclick="stockReport()">Home</button> 
+                <button onclick="PVCStock()" class="hidden-btn">PVC Stock</button>
+                <button onclick="ROStock()" class="hidden-btn">RO Stock</button>
+               <button onclick="electricalStock()" class="hidden-btn">Electrical Stock</button>
+               <button onclick="issuedItems();">Issued Items Details</button>
+               <button id="issue-items" disabled onclick="issueStock();">Issue Items</button>
+               <button id="returned-items" disabled onclick="returnedStock()">Add to Stock</button>
+               <button id="back-to-store" disabled onclick="retrunedItemsStore()">Returned to Store </button>
+               <button onclick="addNewItems()" id="add-new-items" disabled="disabled">Add New Items</button>
+               <button id="add-new-user" onclick="addUserPage()" disabled="disabled">Add User</button>
+               <button id="add-new-user" onclick="window.location.href ='user_activation.html'">User Activation</button>
+               <button onclick="logoutUser()" id="logout-user">Logout</button>
 
-            </ul>
+           </ul>
             <!-- <button></button> -->
            </div>
         </div>
@@ -107,11 +107,7 @@
      
         </div>
       <div id="search-container">
-        <button  title="Filter Items" id="filter-btn"><img width="24px" height="24px" src="./Images/empty-filter-32.png" alt="filter"></button>
-        <form action="">
-            <input  placeholder="Search Item" type="search" name="" id="search-bar">
-            <input type="button" value="Search" name="" id="search-btn">
-        </form>
+
       </div>
     </div>
     <form onsubmit="event.preventDefault();" action="">
@@ -335,7 +331,9 @@ $(document).ready(function(){
 
             
         }
-    })
+    });
+
+
 })
 
 </script>

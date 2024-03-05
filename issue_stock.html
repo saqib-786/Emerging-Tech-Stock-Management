@@ -87,9 +87,7 @@
             </div>
         </div>
         <div style="width: 15%; position: relative; right: 15%; display: flex; flex-direction: column;">
-            
-          
-            <!-- <h1><span id="hours-container"></span><span id="mints-container"><sup style="font-size: 16px;" id="am-pm"></sup></h1> -->
+
                 <h3 id="day-container"></h3>
                 <sup style="font-size: 13px;"> <b> <span id="date-container"></span>-<span id="month-container"></span>-<span id="year-container"></span></b></sup>
 
@@ -106,16 +104,20 @@
             <ul>
                 <!-- <button id="admin-user">Login as Admin</button> -->
                 <button style="display: none;" id="user-login">Login as User</button>
-                <button onclick="stockReport()">Home</button>
-               <!-- <button onclick="darkMode();"> Dark Mode</button> -->
+                <button onclick="stockReport()">Home</button> 
+                <button onclick="PVCStock()" class="hidden-btn">PVC Stock</button>
+                <button onclick="ROStock()" class="hidden-btn">RO Stock</button>
+               <button onclick="electricalStock()" class="hidden-btn">Electrical Stock</button>
                <button onclick="issuedItems();">Issued Items Details</button>
                <button id="issue-items" disabled onclick="issueStock();">Issue Items</button>
-               <button id="returned-items" disabled onclick="returnedStock()">Add Returned Items</button>
+               <button id="returned-items" disabled onclick="returnedStock()">Add to Stock</button>
+               <button id="back-to-store" disabled onclick="retrunedItemsStore()">Returned to Store </button>
                <button onclick="addNewItems()" id="add-new-items" disabled="disabled">Add New Items</button>
                <button id="add-new-user" onclick="addUserPage()" disabled="disabled">Add User</button>
+               <button id="add-new-user" onclick="window.location.href ='user_activation.html'">User Activation</button>
                <button onclick="logoutUser()" id="logout-user">Logout</button>
 
-            </ul>
+           </ul>
             <!-- <button>hi</button> -->
            </div>
         </div>
