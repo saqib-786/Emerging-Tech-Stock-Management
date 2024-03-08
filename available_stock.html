@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="min.css">
     <script defer  src="./app.js" ></script>
     <script defer src="./min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <link rel="icon" href="./Images/Emerging tech logo.jpg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <title>Emerging Tech</title>
@@ -171,11 +173,11 @@
                      let data = await response.filter((val)=>filterSearchBar.value.toLowerCase() === val.itemName.toLowerCase() && shedule.value === val.shedule)
                     if(data.length > 0){
                         matchFound = true;
-                     backdrop.style.display = 'flex';
-                     setTimeout(()=>{
-                        backdrop.style.display = 'none'
+                        backdrop.style.display = 'flex';
+                    //  setTimeout(()=>{
+                    //     backdrop.style.display = 'none'
 
-                     },2000);
+                    //  },2000);
                      document.getElementById('scroll-btn').style.display = 'block'
                       loadingContainer.innerHTML = `
                       <table id="available_stock_table">
@@ -211,6 +213,8 @@
                         tr.appendChild(td4);
                         tr.appendChild(td5);
                         tableBody.appendChild(tr);
+                        backdrop.style.display = 'none';
+
                       
                     });
                     filterSearchBar.value = '';

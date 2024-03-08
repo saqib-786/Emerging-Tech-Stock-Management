@@ -106,7 +106,7 @@ entryType.addEventListener('change',function(){
            <form onsubmit="event.preventDefault();" id="form">
             <table>
                 <tr>
-                    <td>ITEM NAME</td>
+                    <td> NAME</td>
                     <td><input class="new-pvc" id="item-name" placeholder="Enter Item Name" required></td>
                     <td>SHEDULE</td>
                     <td>
@@ -119,11 +119,12 @@ entryType.addEventListener('change',function(){
                 </tr>
           
                 <tr>
-                    <td> ITEM SIZE</td>
+                    <td>SIZE</td>
                     <td>
                     <select class='new-pvc' id="size" required>
                         <option value="">Select Size</option>
                         <option value='1/4'>1/4</option>
+                        <option value='1/4'>1/2</option>
                         <option value='3/4'>3/4</option>
                         <option value='1'>1</option>
                         <option value='1.1/4'>1.1/4</option>
@@ -131,8 +132,7 @@ entryType.addEventListener('change',function(){
                         <option value='2'>2</option>
                         <option value='3'>3</option>
                         <option value='4'>4</option>
-                        <option value='6'>6</option>
-                        <option value='8'>8</option>
+                        
                     </select>
                     </td>
                     <td>QUANTITY</td>
@@ -151,7 +151,7 @@ entryType.addEventListener('change',function(){
            <form onsubmit="event.preventDefault();" id="form">
             <table>
                 <tr>
-                    <td>ITEM NAME</td>
+                    <td> NAME</td>
                     <td><input class='new-pvc' id="item-name" placeholder="Enter Item Name" required></td>
                     <td>SIZE</td>
                     <td><input class='new-pvc' id='size' required placeholder="Enter Item Name" type='text'></td>
@@ -178,14 +178,14 @@ entryType.addEventListener('change',function(){
            <form onsubmit="event.preventDefault();" id="form">
             <table>
                 <tr>
-                    <td>ITEM NAME</td>
+                    <td> NAME</td>
                     <td><input class='new-pvc' placeholder='Enter Item Name' /></td>
                     <td>SIZE</td>
                     <td><input class='new-pvc' placeholder='Enter Item Size' />
                 </tr>
                 <tr>
                     <td> QUANTITY</td>
-                    <td><input class='new-pvc' placeholder='Enter Item Quantity'/>
+                    <td><input type="number" class='new-pvc' placeholder='Enter Item Quantity'/>
                 </tr>
             </table>
             <input class='new-item-btn' type='submit'/>
@@ -198,7 +198,7 @@ entryType.addEventListener('change',function(){
            <form onsubmit="event.preventDefault();" id="form">
             <table>
                 <tr>
-                    <td>ITEM NAME</td>
+                    <td> NAME</td>
                     <td><input class="new-pvc" id="item-name" placeholder="Enter Item Name" required></td>
                     <td>SHEDULE</td>
                     <td>
@@ -211,7 +211,7 @@ entryType.addEventListener('change',function(){
                 </tr>
           
                 <tr>
-                    <td> ITEM SIZE</td>
+                    <td>  SIZE</td>
                     <td>
                     <select class='new-pvc' id="size" required>
                         <option value="">Select Size</option>
@@ -261,7 +261,7 @@ function addPVCItem(){
     }else if(quantity.value === ''){
         alert('Please Enter the Quantity first!');
     }else{
-        firebase.database().ref('Stock').once('value', async function(snapshot){
+        firebase.database().ref('PVCStock').once('value', async function(snapshot){
             let response = snapshot.val();
             let matchFound = false;
             try{
@@ -289,7 +289,7 @@ function addPVCItem(){
                     size: size.value
 
                 }
-                firebase.database().ref('Stock/' + key).set(obj);
+                firebase.database().ref('PVCStock/' + key).set(obj);
             }                
             }
         })

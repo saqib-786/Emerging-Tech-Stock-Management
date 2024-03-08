@@ -230,9 +230,9 @@ function PVCStock() {
   let backdrop = document.getElementById("backdrop");
   if (navigator.onLine) {
     backdrop.style.display = "flex";
-    setTimeout(() => {
-      backdrop.style.display = "none";
-    }, 2000);
+    // setTimeout(() => {
+    //   backdrop.style.display = "none";
+    // }, 2000);
     document.getElementById("scroll-btn").style.display = "block";
     loadingContainer.innerHTML = `
   <table id="available_stock_table">
@@ -250,7 +250,8 @@ function PVCStock() {
     });
     tableHead.appendChild(tr);
 
-    firebase
+    try{
+      firebase
       .database()
       .ref("PVCStock")
       .on("value", async function (snapshot) {
@@ -276,8 +277,15 @@ function PVCStock() {
           tr.appendChild(td4);
           tr.appendChild(td5);
           tableBody.appendChild(tr);
+         backdrop.style.display = "none";
+
+
         });
       });
+    }
+    catch(err){
+      console.log(`=>=> error ${err}`)
+    }
 
     $("#nav-container").hide("slow");
   } else {
@@ -286,12 +294,13 @@ function PVCStock() {
 }
 
 function ROStock() {
-  let loadingContainer = document.getElementById("loading-container");
+  if(navigator.onLine){
+    let loadingContainer = document.getElementById("loading-container");
   let backdrop = document.getElementById("backdrop");
   backdrop.style.display = "flex";
-  setTimeout(() => {
-    backdrop.style.display = "none";
-  }, 2000);
+  // setTimeout(() => {
+  //   backdrop.style.display = "none";
+  // }, 2000);
   document.getElementById("scroll-btn").style.display = "block";
   loadingContainer.innerHTML = `
   <table id="available_stock_table">
@@ -309,7 +318,7 @@ function ROStock() {
   });
   tableHead.appendChild(tr);
 
-  firebase
+    firebase
     .database()
     .ref("ROStock")
     .on("value", async function (snapshot) {
@@ -335,19 +344,22 @@ function ROStock() {
         tr.appendChild(td4);
         tr.appendChild(td5);
         tableBody.appendChild(tr);
+        backdrop.style.display = "none";
+
       });
     });
 
   $("#nav-container").hide("slow");
+  }else{
+    console.log('No Internet Connection')
+  }
 }
 
 function electricalStock() {
   let backdrop = document.getElementById("backdrop");
   let loadingContainer = document.getElementById("loading-container");
   backdrop.style.display = "flex";
-  setTimeout(() => {
-    backdrop.style.display = "none";
-  }, 2000);
+  
   document.getElementById("scroll-btn").style.display = "block";
   loadingContainer.innerHTML = `
   <table id="available_stock_table">
@@ -389,7 +401,9 @@ function electricalStock() {
         tr.appendChild(td4);
         tr.appendChild(td5);
         tableBody.appendChild(tr);
-      });
+        backdrop.style.display = "none";
+
+      });     kkkkkkkklllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll
     });
 
   $("#nav-container").hide("slow");

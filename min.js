@@ -80,20 +80,28 @@ function userLogin(event) {
             matchFound = true;
           loginContainer.style.filter = "blur(8px)";
           backdrop.style.display = "flex";
-          setTimeout(() => {
-            sessionStorage.setItem(
-              "loginStatus",
-              JSON.stringify({
-                userName: val.userName,
-                status: val.status,
-                loginStatus: true,
-              })
-            );
-            // localStorage.setItem("name&status",JSON.stringify({'userName':val.userName,"status":val.status}));
+          sessionStorage.setItem(
+                "loginStatus",
+                JSON.stringify({
+                  userName: val.userName,
+                  status: val.status,
+                  loginStatus: true,
+                })
+              );
             window.location.replace("available_stock.html");
-            // logoutUserBtn.style.display = 'block';
-            // sessionStorage.setItem('loginStatus', true);
-          }, 3000);
+
+          // setTimeout(() => {
+          //   sessionStorage.setItem(
+          //     "loginStatus",
+          //     JSON.stringify({
+          //       userName: val.userName,
+          //       status: val.status,
+          //       loginStatus: true,
+          //     })
+          //   );
+          //   window.location.replace("available_stock.html");
+           
+          // }, 3000);
           userEmail.value = "";
           userPassword.value = "";
         }
