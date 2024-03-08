@@ -49,9 +49,9 @@ function userLogin(event) {
   let passwordIcon = document.getElementById("password-icon");
   let backdrop = document.getElementById("backdrop");
   if (userEmail.value === "") {
-    alert("Please enter your email first!");
+    toastify("Please enter your email first!");
   } else if (userPassword.value === "") {
-    alert("Please enter your password first!");
+    toastify("Please enter your password first!");
   } else {
     let promise = new Promise(function (resolve, reject) {
       firebase
@@ -107,7 +107,7 @@ function userLogin(event) {
         }
       });
       if (matchFound === false) {
-        alert("Sorry incorrect email or password");
+        toastify("Sorry incorrect email or password");
         userPassword.value = "";
         passwordIcon.style.display = "none";
       }
@@ -144,7 +144,7 @@ function adminLogin() {
           console.log(val.name, val.email, val.password);
         });
       } else {
-        alert("Something Went Wrong");
+        toastify("Something Went Wrong");
       }
     });
 }
@@ -201,7 +201,7 @@ function stockReport() {
   if (isLogin) {
     window.location.href = "available_stock.html";
   } else {
-    alert("Please login first");
+    toastify("Please login first")
     window.location.replace("index.html");
   }
 }
@@ -222,7 +222,7 @@ function userEmailConfirmation() {
   let userEmail = document.getElementById("userEmail");
   let activationContainer = document.getElementById("activation-container");
   if (userEmail.value === "") {
-    alert("Please enter your email first!");
+    toastify("Please enter your email first!");
   } else {
     firebase
       .database()
@@ -237,7 +237,7 @@ function userEmailConfirmation() {
             item.userPassword.length > 0
           ) {
             matchFound = true;
-            alert("Sorry this email have already an account!");
+            toastify("Sorry this email have already an account!")
             userEmail.value = "";
           } else if (userEmail.value === item.userEmail) {
             matchFound = true;
@@ -270,7 +270,7 @@ function userEmailConfirmation() {
           }
         });
         if (matchFound === false) {
-          alert("Sorry this email not found");
+          toastify("Sorry this email not found")
           userEmail.value = "";
         }
       });
@@ -287,7 +287,7 @@ function userPasswordConfirmation() {
   let password = document.getElementById("password");
   let confirmPassword = document.getElementById("confirmPassword");
   if (password.value !== confirmPassword.value) {
-    alert("Password did not match check your password");
+    toastify("Password did not match check your password");
     confirmPassword.focus();
   } else {
     firebase
@@ -311,7 +311,7 @@ function userPasswordConfirmation() {
           }
         });
       });
-    alert("Password has been set");
+    toastify("Password has been set");
     window.location.replace("index.html");
   }
 }
@@ -324,6 +324,23 @@ function itemsDetails(id){
 
 }
 
+function toastify(val){
+  Toastify({
+    text: val,
+    duration: 3000,
+     destination: "",
+     close: true,
+     gravity: "top", // `top` or `bottom`
+    position: "center", // `left`, `center` or `right`
+    stopOnFocus: true, // Prevents dismissing of toast on hover
+    style: {
+    background: "linear-gradient(to right, #00b09b, #96c93d)",
+    
+     },
+    onClick: function(){} // Callback after click
+    }).showToast();
+
+}
 // jquery code goes here
 
 $(document).ready(function () {

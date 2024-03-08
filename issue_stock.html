@@ -201,13 +201,13 @@
 
             }
             if(issueDate.value === ''){
-                alert('Please select date first!');
+                toastify('Please select date first!');
             }else if(siteName.value === ''){
-                alert('Please enter site name first!');
+                toastify('Please enter site name first!')
             }else if(providerName.value === ''){
-                alert('Please enter provider name first!');
+                toastify('Please enter provider name first!');
             }else if(reveiverName.value === ''){
-                alert('Please enter receiver name first!')
+                toastify('Please enter receiver name first!');
             }else{
                
                 localStorage.setItem("key",JSON.stringify({key:issueDate.value,id:id}))
@@ -258,11 +258,6 @@
         <button onclick="ElectricalIssue(this,${index})" class="add-btn">ISSUE</button>
         </div>`
        }
-    //     td5.innerHTML = `<div>
-
-    //   <input type="number" class="input" id='input${index}' placeholder="0" />
-    //   <button onclick="PVCISSUE(this,${index})" class="add-btn">ISSUE</button>
-    //   </div>`;
 
         tr.appendChild(td4);
         tr.appendChild(td);
@@ -276,4 +271,20 @@
         })
      $('#table-container').show('slow')
     }
+    function toastify(val){
+    Toastify({
+    text: val,
+    duration: 3000,
+     destination: "",
+     close: true,
+     gravity: "top", // `top` or `bottom`
+    position: "center", // `left`, `center` or `right`
+    stopOnFocus: true, // Prevents dismissing of toast on hover
+    style: {
+    background: "linear-gradient(to right, #00b09b, #96c93d)",
+    
+     },
+    onClick: function(){} // Callback after click
+    }).showToast();
+}
 </script>

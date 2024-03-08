@@ -227,7 +227,7 @@ async function add(btn,index){
     let data = snapshot.val();
    let result=  data.filter((item,i)=> i === index);
    if(userValue.value === ''){
-    alert('Please Enter the Quantity first!')
+    toastify('Please Enter the Quantity first!');
    }else{
     result.forEach((item)=>{
     tbody.innerHTML = '';
@@ -283,6 +283,22 @@ function gettingSiteName(){
  
 }
 
+function toastify(val){
+  Toastify({
+    text: val,
+    duration: 3000,
+     destination: "",
+     close: true,
+     gravity: "top", // `top` or `bottom`
+    position: "center", // `left`, `center` or `right`
+    stopOnFocus: true, // Prevents dismissing of toast on hover
+    style: {
+    background: "linear-gradient(to right, #00b09b, #96c93d)",
+    
+     },
+    onClick: function(){} // Callback after click
+    }).showToast();
+}
 
 
 $(document).ready(function(){
@@ -315,13 +331,13 @@ $(document).ready(function(){
         }
       
         if(returendDate.value === ''){
-            alert('Please Select the date first!')
+            toastify('Please Select the date first!');
         }else if(enteryType.value === ''){
-            alert('Please select entry type');
+            toastify('Please select entry type');
         }else if(providerName.value === ''){
-            alert('Please enter the provider name first!');
+            toastify('Please enter the provider name first!');
         }else if(receiverName.value === ''){
-            alert('Please enter receiver name first');
+            toastify('Please enter receiver name first');
         }else{
         localStorage.setItem('returnKey',JSON.stringify(id));
         firebase.database().ref('ReturendDetails/' + id).set(obj)

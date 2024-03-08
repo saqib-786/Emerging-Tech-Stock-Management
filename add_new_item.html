@@ -253,13 +253,13 @@ function addPVCItem(){
     let size = document.getElementById('size');
     let quantity = document.getElementById('quantity');
     if(itemName.value === ''){
-        alert('Please Enter the Item Name first!');
+        toastify('Please Enter the Item Name first!');
     }else if(shedule.value === ''){
-        alert('Please Select the Shedule first!');
+        toastify('Please Select the Shedule first!')
     }else if(size.value === ''){
-        alert('Please Enter the Size first!');
+        toastify('Please Enter the Size first!')
     }else if(quantity.value === ''){
-        alert('Please Enter the Quantity first!');
+        toastify('Please Enter the Quantity first!');
     }else{
         firebase.database().ref('PVCStock').once('value', async function(snapshot){
             let response = snapshot.val();
@@ -269,13 +269,12 @@ function addPVCItem(){
                 if(item.itemName === itemName.value && item.shedule === itemShedule.value && item.size === size.value){
                     matchFound = true;
                     throw new Error(`${itemName.value} by size ${size.value} already exists!`);
-                    // alert(`${itemName.value} by size ${size.value} already exists!`);
                     
                     
                 }
             });
             }catch(err){
-                alert(err)
+                toastify(err)
             }
             if(matchFound === false){
             if(confirm('Are you really want to add this item to stock')){
@@ -297,5 +296,20 @@ function addPVCItem(){
             
 };
 }
-
+function toastify(val){
+    Toastify({
+    text: val,
+    duration: 3000,
+     destination: "",
+     close: true,
+     gravity: "top", // `top` or `bottom`
+    position: "center", // `left`, `center` or `right`
+    stopOnFocus: true, // Prevents dismissing of toast on hover
+    style: {
+    background: "linear-gradient(to right, #00b09b, #96c93d)",
+    
+     },
+    onClick: function(){} // Callback after click
+    }).showToast();
+}
 </script>

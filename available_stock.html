@@ -12,6 +12,8 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <link rel="icon" href="./Images/Emerging tech logo.jpg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <title>Emerging Tech</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.17.2/firebase-app.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.17.2/firebase-database.js"></script>
@@ -132,7 +134,7 @@
     </center>
 </body>
 <script>
-    
+ 
       window.addEventListener('load',function(){
         let data = JSON.parse(sessionStorage.getItem('loginStatus'));
         let {userName} = data;
@@ -163,9 +165,11 @@
             let loadingContainer = document.getElementById('loading-container');
             let backdrop = document.getElementById('backdrop');
             if(filterSearchBar.value === ''){
-                alert('Please Write Item Name First');
+            
+                toastify('Please Write Item Name First')
             }else if(shedule.value === ''){
-                alert('Please Select the Shadule First');
+         
+                toastify('Please Select the Shadule First')
             }else{
                 firebase.database().ref('PVCStock').once('value', async function(snapshot){
                      let matchFound = false;
@@ -222,7 +226,8 @@
                   
                     }
                     if(matchFound === false){
-                    alert(`Sorry ${filterSearchBar.value} in ${shedule.value} shedule was not found`);
+                   
+                    toastify(`Sorry ${filterSearchBar.value} in ${shedule.value} shedule was not found`)
                     filterSearchBar.value = '';
                     shedule.value = '';
                    }
@@ -239,7 +244,22 @@
             
         });
 
-        
+        function toastify(val){
+            Toastify({
+            text: val,
+            duration: 3000,
+             destination: "",
+             close: true,
+             gravity: "top", // `top` or `bottom`
+            position: "center", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+            background: "linear-gradient(to right, #00b09b, #96c93d)",
+             },
+            onClick: function(){} // Callback after click
+            }).showToast();
+
+        }
 
 
         // document.getElementById('user-name').innerText = localStorage.getItem('userName')

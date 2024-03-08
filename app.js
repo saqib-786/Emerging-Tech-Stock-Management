@@ -75,7 +75,7 @@ function ROISSUE(btn,index){
   let userValue = document.getElementById(`input${index}`);
   let tbody = document.getElementById("table-body");
   if (userValue.value === "") {
-    alert("Please enter the quantity first!");
+    toastify("Please enter the quantity first!");
   } else {
     firebase
       .database()
@@ -84,12 +84,12 @@ function ROISSUE(btn,index){
         let data = snapshot.val();
         let result = data.filter((item, i) => i === index);
         if (Number(userValue.value) < 0) {
-          alert("Quaintiy should be more than 0");
+          toastify("Quaintiy should be more than 0")
         } else {
           result.forEach((item) => {
             // tbody.innerHTML = "";
             if(item.quantity <= 0){
-              alert(`Sorry ${item.itemName} is not available in stock`)
+              toastify(`Sorry ${item.itemName} is not available in stock`)
             }else{
               firebase
               .database()
@@ -117,7 +117,7 @@ async function PVCISSUE(btn, index) {
   let userValue = document.getElementById(`input${index}`);
   let tbody = document.getElementById("table-body");
   if (userValue.value === "") {
-    alert("Please enter the quantity first!");
+    toastify("Please enter the quantity first!")
   } else {
     firebase
       .database()
@@ -127,12 +127,12 @@ async function PVCISSUE(btn, index) {
         let result = data.filter((item, i) => i === index);
 
         if (Number(userValue.value) < 0) {
-          alert("Quaintiy should be more than 0");
+          toastify("Quaintiy should be more than 0");
         } else {
           result.forEach((item) => {
             // tbody.innerHTML = "";
             if(item.quantity <= 0){
-              alert(`Sorry ${item.itemName} is not available in stock`)
+              toastify(`Sorry ${item.itemName} is not available in stock`)
             }else{
               firebase
               .database()
@@ -164,7 +164,7 @@ function ElectricalIssue(btn,index){
   let userValue = document.getElementById(`input${index}`);
   let tbody = document.getElementById("table-body");
   if (userValue.value === "") {
-    alert("Please enter the quantity first!");
+    toastify("Please enter the quantity first!");
   } else {
     firebase
       .database()
@@ -174,12 +174,12 @@ function ElectricalIssue(btn,index){
         let result = data.filter((item, i) => i === index);
 
         if (Number(userValue.value) < 0) {
-          alert("Quaintiy should be more than 0");
+          toastify("Quaintiy should be more than 0")
         } else {
           result.forEach((item) => {
             // tbody.innerHTML = "";
             if(item.quantity <= 0){
-              alert(`Sorry ${item.itemName} is not available in stock`)
+              toastify(`Sorry ${item.itemName} is not available in stock`)
             }else{
               firebase
               .database()
@@ -403,7 +403,7 @@ function electricalStock() {
         tableBody.appendChild(tr);
         backdrop.style.display = "none";
 
-      });     kkkkkkkklllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll
+      });     
     });
 
   $("#nav-container").hide("slow");
@@ -455,18 +455,18 @@ function addNewUser() {
       response.forEach((item) => {
         if (item.userEmail === userEmail.value) {
           matchFound = true;
-          alert("Sorry this email already exists!");
+          toastify("Sorry this email already exists!")
           userEmail.focus();
           userEmail.value = "";
         }
       });
       if (matchFound === false) {
         if (userName.value === "") {
-          alert("Please enter user name first!");
+          toastify("Please enter user name first!");
         } else if (userEmail.value === "") {
-          alert("Please enter user email first!");
+          toastify("Please enter user email first!");
         } else if (userType.value === "") {
-          alert("Please select user type first!");
+          toastify("Please select user type first!");
         } else {
           let obj = {
             id: snapshot.val().length + 1,
@@ -480,17 +480,14 @@ function addNewUser() {
             .database()
             .ref("Users/" + key)
             .set(obj);
-          alert("User has been added successfully!");
+          toastify("User has been added successfully!");
           userEmail.value = "";
           userName.value = "";
           userType.value = "";
         }
       }
     });
-  // if(userType.value === 'Admin'){
-  //   alert('Enter permission code')
-
-  // }
+  
 }
 
 function addUserPage() {
@@ -508,10 +505,9 @@ function addNewItems() {
 function userSearch() {
   let userValue = document.getElementById("search-bar").value.toLowerCase();
   if (userValue === "") {
-    alert("Please write item name first!");
-    userValue.focus();
+    toastify("Please write item name first!");
+  
   } else {
-    // userValue.value = userValue.value.toLowerCase();
     firebase
       .database()
       .ref("PVCStock")
@@ -612,7 +608,7 @@ function searchResults(result, userValue) {
       }
     });
   } else {
-    alert(`Sorry ${userValue} was not found please try some other words`);
+    toastify(`Sorry ${userValue} was not found please try some other words`);
   }
 }
 
@@ -620,6 +616,23 @@ function retrunedItemsStore (){
   // let key = JSON.parse(localStorage.getItem('returnKey'));
   // console.log(key)
   window.location.href = 'returend_details.html';
+}
+
+function toastify(val){
+  Toastify({
+    text: val,
+    duration: 3000,
+     destination: "",
+     close: true,
+     gravity: "top", // `top` or `bottom`
+    position: "center", // `left`, `center` or `right`
+    stopOnFocus: true, // Prevents dismissing of toast on hover
+    style: {
+    background: "linear-gradient(to right, #00b09b, #96c93d)",
+    
+     },
+    onClick: function(){} // Callback after click
+    }).showToast();
 }
 
 // Media query code is going here
