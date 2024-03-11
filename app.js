@@ -230,9 +230,6 @@ function PVCStock() {
   let backdrop = document.getElementById("backdrop");
   if (navigator.onLine) {
     backdrop.style.display = "flex";
-    // setTimeout(() => {
-    //   backdrop.style.display = "none";
-    // }, 2000);
     document.getElementById("scroll-btn").style.display = "block";
     loadingContainer.innerHTML = `
   <table id="available_stock_table">
@@ -260,23 +257,15 @@ function PVCStock() {
         let tableBody = document.getElementById("table-body");
         tableBody.innerHTML = "";
         data.sort().forEach((item, index) => {
-          let tr = document.createElement("tr");
-          let td1 = document.createElement("td");
-          td1.innerText = index + 1;
-          let td2 = document.createElement("td");
-          td2.innerText = item.itemName;
-          let td3 = document.createElement("td");
-          td3.innerText = item.size;
-          let td4 = document.createElement("td");
-          td4.innerText = item.hasOwnProperty('shedule')? item.shedule : item.UMO;
-          let td5 = document.createElement("td");
-          td5.innerText = item.quantity;
-          tr.appendChild(td1);
-          tr.appendChild(td2);
-          tr.appendChild(td3);
-          tr.appendChild(td4);
-          tr.appendChild(td5);
-          tableBody.appendChild(tr);
+          tableBody.innerHTML += `
+          <tr>
+          <td>${index + 1}</td>
+          <td>${item.itemName}</td>
+          <td>${item.size}</td>
+          <td>${item.hasOwnProperty("shedule") ? item.shedule : item.UMO}</td>
+          <td>${item.quantity}</td>
+          </tr>
+          `
          backdrop.style.display = "none";
 
 
@@ -298,9 +287,6 @@ function ROStock() {
     let loadingContainer = document.getElementById("loading-container");
   let backdrop = document.getElementById("backdrop");
   backdrop.style.display = "flex";
-  // setTimeout(() => {
-  //   backdrop.style.display = "none";
-  // }, 2000);
   document.getElementById("scroll-btn").style.display = "block";
   loadingContainer.innerHTML = `
   <table id="available_stock_table">
@@ -327,23 +313,16 @@ function ROStock() {
       let tableBody = document.getElementById("table-body");
       tableBody.innerHTML = "";
       data.sort().forEach((item, index) => {
-        let tr = document.createElement("tr");
-        let td1 = document.createElement("td");
-        td1.innerText = index + 1;
-        let td2 = document.createElement("td");
-        td2.innerText = item.itemName;
-        let td3 = document.createElement("td");
-        td3.innerText = item.size;
-        let td4 = document.createElement("td");
-        td4.innerText = item.UMO;
-        let td5 = document.createElement("td");
-        td5.innerText = item.quantity;
-        tr.appendChild(td1);
-        tr.appendChild(td2);
-        tr.appendChild(td3);
-        tr.appendChild(td4);
-        tr.appendChild(td5);
-        tableBody.appendChild(tr);
+        tableBody.innerHTML += `
+        
+          <tr>
+          <td>${index + 1}</td>
+          <td>${item.itemName}</td>
+          <td>${item.size}</td>
+          <td>${item.hasOwnProperty("shedule") ? item.shedule : item.UMO}</td>
+          <td>${item.quantity}</td>
+          </tr>
+          `
         backdrop.style.display = "none";
 
       });
@@ -356,6 +335,7 @@ function ROStock() {
 }
 
 function electricalStock() {
+ if(navigator.onLine){
   let backdrop = document.getElementById("backdrop");
   let loadingContainer = document.getElementById("loading-container");
   backdrop.style.display = "flex";
@@ -384,29 +364,25 @@ function electricalStock() {
       let tableBody = document.getElementById("table-body");
       tableBody.innerHTML = "";
       data.sort().forEach((item, index) => {
-        let tr = document.createElement("tr");
-        let td1 = document.createElement("td");
-        td1.innerText = index + 1;
-        let td2 = document.createElement("td");
-        td2.innerText = item.itemName;
-        let td3 = document.createElement("td");
-        td3.innerText = item.size;
-        let td4 = document.createElement("td");
-        td4.innerText = item.UMO;
-        let td5 = document.createElement("td");
-        td5.innerText = item.quantity;
-        tr.appendChild(td1);
-        tr.appendChild(td2);
-        tr.appendChild(td3);
-        tr.appendChild(td4);
-        tr.appendChild(td5);
-        tableBody.appendChild(tr);
+        tableBody.innerHTML += `
+        <tr>
+          <td>${index + 1}</td>
+          <td>${item.itemName}</td>
+          <td>${item.size}</td>
+          <td>${item.hasOwnProperty("shedule") ? item.shedule : item.UMO}</td>
+          <td>${item.quantity}</td>
+          </tr>
+          `
         backdrop.style.display = "none";
 
       });     
     });
 
   $("#nav-container").hide("slow");
+ }else{
+  let loadingContainer = document.getElementById("loading-container");
+   loadingContainer.innerHTML = `<h2>No Internet Access Please Check Your Internet Connection</h2>`
+ }
 }
 
 function issuedItems() {
