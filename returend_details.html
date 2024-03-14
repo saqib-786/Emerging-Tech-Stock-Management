@@ -36,6 +36,12 @@
     <title>Emerging Tech</title>
 </head>
 <body>
+    <div id="backdrop">
+        <div>
+            <!-- <h2>Please Wait</h2> -->
+            <img id="loading-img" src="./Images/loading (2).gif" alt="">
+        </div>
+    </div>
     <nav id="nav">
         <div>
             <img width="60px" height="60px" src="./Images/Emerging_tech_logo-removebg-preview.png" alt="emerging tech logo">
@@ -97,6 +103,11 @@
 </html>
 <script>
   const siteReturend = ()=>{
+    let backDrop = document.getElementById('backdrop');
+    backDrop.style.display = 'flex';
+    let heading = document.getElementById('heading');
+    heading.innerText = '';
+    heading.innerText = 'Site Returend';
     firebase.database().ref('ReturendDetails').once('value', async (snapshot)=>{
         let tableHead = document.getElementById('table-head');
         let tableBody = document.getElementById('table-body');
@@ -118,33 +129,31 @@
 
       data.forEach((item,index)=>{
         tableBody.innerHTML = '';
-        let td1 = document.createElement('td');
-        td1.innerText = index + 1;
-        let td2 = document.createElement('td');
-        td2.innerText = item.returendDate;
-        let td3 = document.createElement('td');
-        td3.innerText = item.siteName;
-        let td4 = document.createElement('td');
-        td4.innerText = item.providerName;
-        let td5 = document.createElement('td');
-        td5.innerText = item.receiverName;
-        let td6 = document.createElement('td');
-        td6.innerHTML = `<button class="add-btn" onclick='getItemKey(${item.id})'>Details</button>`
-        TR.appendChild(td1);
-        TR.appendChild(td2);
-        TR.appendChild(td3);
-        TR.appendChild(td4);
-        TR.appendChild(td5);
-        TR.appendChild(td6);
+        tableBody.innerHTML += `
+        <tr>
+            <td>${index + 1}</td>
+            <td>${item.returendDate}</td>
+            <td>${item.siteName}</td>
+            <td>${item.providerName}</td>
+            <td>${item.receiverName}</td>
+            <td><button class="add-btn" onclick='getItemKey(${item.id})'>Details</button></td>
+            </tr>
+        `
+       backDrop.style.display = 'none';
       });
 
-      tableBody.appendChild(TR)
+     
         
 
     })
   }
 
   const purchased = ()=>{
+    let backDrop = document.getElementById('backdrop');
+    let heading = document.getElementById('heading');
+    backDrop.style.display = 'flex';
+    heading.innerText = '';
+    heading.innerText = 'Purchased Items'
     firebase.database().ref('ReturendDetails').once('value', async (snapshot)=>{
         let tableHead = document.getElementById('table-head');
         let tableBody = document.getElementById('table-body');
@@ -155,37 +164,26 @@
             let th = document.createElement('th');
             th.innerText = item;
             tr.appendChild(th);
-            
-            
+
         });
         tableHead.appendChild(tr)
         let response = await snapshot.val();
         let data = Object.values(response).filter((item,)=> item.hasOwnProperty('purchaser'));
         let TR = document.createElement('tr');
         data.forEach((item,index)=>{
-            tableBody.innerHTML = '';
-        let td1 = document.createElement('td');
-        td1.innerText = index + 1;
-        let td2 = document.createElement('td');
-        td2.innerText = item.returendDate;
-        let td3 = document.createElement('td');
-        td3.innerText = item.purchaser;
-        let td4 = document.createElement('td');
-        td4.innerText = item.providerName;
-        let td5 = document.createElement('td');
-        td5.innerText = item.receiverName;
-        let td6 = document.createElement('td');
-        td6.innerHTML = `<button class="add-btn" onclick='getItemKey(${item.id})'>Details</button>`
-        TR.appendChild(td1);
-        TR.appendChild(td2);
-        TR.appendChild(td3);
-        TR.appendChild(td4);
-        TR.appendChild(td5);
-        TR.appendChild(td6);
-        
-            
+        tableBody.innerHTML = '';
+        tableBody.innerHTML +=`
+        <tr>
+            <td>${index}</td>
+            <td>${item.returendDate}</td>
+            <td>${item.purchaser}</td>
+            <td>${item.providerName}</td>
+            <td>${item.receiverName}</td>
+            <td><button class="add-btn" onclick='getItemKey(${item.id})'>Details</button></td>
+            </tr>
+        `
+        backDrop.style.display = 'none';    
         });
-        tableBody.appendChild(TR)
     })
   }
   

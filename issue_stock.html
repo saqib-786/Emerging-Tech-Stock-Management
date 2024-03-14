@@ -222,6 +222,7 @@
     })
 
     function loadStock(ref){
+       if(navigator.onLine){
         localStorage.setItem('ref',JSON.stringify(ref))
         firebase.database().ref(ref).once('value',(snapshot)=>{
         let response = snapshot.val();
@@ -271,7 +272,11 @@
         })
             
         })
-     $('#table-container').show('slow')
+     $('#table-container').show('slow');
+       }else{
+        let tableContainer = document.getElementById("table-container");
+        tableContainer.innerHTML = `<h2>No Internet Access Please Check your Internet Connection</h2>`
+       }
     }
     function toastify(val){
     Toastify({

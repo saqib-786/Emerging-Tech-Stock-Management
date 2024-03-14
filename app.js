@@ -113,7 +113,8 @@ function ROISSUE(btn,index){
 }
 }
 async function PVCISSUE(btn, index) {
-  let ref = JSON.parse(localStorage.getItem("ref"));
+  if(navigator.onLine){
+    let ref = JSON.parse(localStorage.getItem("ref"));
   let userValue = document.getElementById(`input${index}`);
   let tbody = document.getElementById("table-body");
   if (userValue.value === "") {
@@ -151,6 +152,11 @@ async function PVCISSUE(btn, index) {
           });
         }
       });
+  }
+  
+  }else{
+    let tableContainer = document.getElementById('table-container');
+    tableContainer.innerHTML = `<h1>NO Internet Access Please Check your Internet Connection`;
   }
 
   async function removeValue(btn) {

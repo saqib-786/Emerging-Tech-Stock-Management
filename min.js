@@ -78,6 +78,7 @@ function userLogin(event) {
           userPassword.value === val.userPassword
         ) {
             matchFound = true;
+            toastify('Success');
           loginContainer.style.filter = "blur(8px)";
           backdrop.style.display = "flex";
           sessionStorage.setItem(
@@ -89,19 +90,7 @@ function userLogin(event) {
                 })
               );
             window.location.replace("available_stock.html");
-
-          // setTimeout(() => {
-          //   sessionStorage.setItem(
-          //     "loginStatus",
-          //     JSON.stringify({
-          //       userName: val.userName,
-          //       status: val.status,
-          //       loginStatus: true,
-          //     })
-          //   );
-          //   window.location.replace("available_stock.html");
-           
-          // }, 3000);
+            
           userEmail.value = "";
           userPassword.value = "";
         }
