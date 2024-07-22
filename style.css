@@ -68,6 +68,7 @@ html{
 #avilable_stock_table thead tr{
     display: block;
 }
+
 #returend_stock_table{
     display: table;
     border-collapse: collapse;
@@ -108,11 +109,11 @@ html{
   
 }
 tbody tr:nth-child(even){
-    /* background-color:#C7DBD2; */
+    background-color:#016E56;
     margin: 10px;
 }
 tbody tr:nth-child(odd){
-/* background-color: #D1E7DD; */
+background-color: #BAD8EC;
 }
 
 

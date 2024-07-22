@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script defer src="./min.js"></script>
     <script>
         const firebaseConfig = {
@@ -105,9 +106,9 @@
 </body>
 </html>
 <script>
+    let backdrop = document.getElementById('backdrop');
     window.addEventListener('load',function(){
-        let backdrop = document.getElementById('backdrop');
-        // backdrop.style.display = 'flex';
+        backdrop.style.display = 'flex';
         // setTimeout(()=>{
         //     backdrop.style.display = 'none';
         // },2000);
@@ -138,16 +139,12 @@
           tr.appendChild(td3);
           tr.appendChild(td4);
           tr.appendChild(td5);
-          tableBody.appendChild(tr)
-        //   td3.appendChild(result.size);
-        //   td4.appendChild(result.shedule);
-        //   td5.appendChild(result.quantity);
+          tableBody.appendChild(tr);
+          backdrop.style.display = 'none';
          })
          })
-         
-        //  let data =    Object.values(response).filter((item)=> item.id === id);
-         
+                 
 
-        })
+        });
     })
 </script>

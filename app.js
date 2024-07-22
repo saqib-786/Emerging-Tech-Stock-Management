@@ -486,6 +486,7 @@ function addNewItems() {
 
 function userSearch() {
   let userValue = document.getElementById("search-bar").value.toLowerCase();
+  let backdrop = document.getElementById('backdrop');
   if (userValue === "") {
     toastify("Please write item name first!");
   
@@ -522,6 +523,7 @@ function userSearch() {
 }
 
 function searchResults(result, userValue) {
+  let backdrop = document.getElementById('backdrop');
   let loadingContainer = document.getElementById("loading-container");
   let inputValue = document.getElementById('search-bar');
   inputValue.value = '';
@@ -544,23 +546,17 @@ function searchResults(result, userValue) {
     <th>SHEDULE</th>
     <th>QUANTITY</th>
     </tr>`;
-        let tr = document.createElement("tr");
-        let td = document.createElement("td");
-        td.innerText = index + 1;
-        let td1 = document.createElement("td");
-        td1.innerText = item.itemName;
-        let td2 = document.createElement("td");
-        td2.innerText = item.size;
-        let td3 = document.createElement("td");
-        td3.innerText = item.shedule;
-        let td4 = document.createElement("td");
-        td4.innerText = item.quantity;
-        tr.appendChild(td);
-        tr.appendChild(td1);
-        tr.appendChild(td2);
-        tr.appendChild(td3);
-        tr.appendChild(td4);
-        tableBody.appendChild(tr);
+    tableBody.innerHTML += `
+    <tr>
+    <td>${index + 1}</td>
+    <td>${item.itemName}</td>
+    <td>${item.size}</td>
+    <td>${item.shedule}</td>
+    <td>${item.quantity}</td>
+    </tr>
+    `
+    backdrop.style.display = 'none'
+    
       } else {
         let tableHead = document.getElementById("table-head");
         tableHead.innerHTML = `<tr>
@@ -570,24 +566,19 @@ function searchResults(result, userValue) {
    <th>UMO</th>
    <th>QUANTITY</th>
    </tr>`;
-        let tr = document.createElement("tr");
-        let td = document.createElement("td");
-        td.innerText = index + 1;
-        let td1 = document.createElement("td");
-        td1.innerText = item.itemName;
-        let td2 = document.createElement("td");
-        td2.innerText = item.size;
-        let td3 = document.createElement("td");
-        td3.innerText = item.UMO;
-        let td4 = document.createElement("td");
-        td4.innerText = item.quantity;
-        tr.appendChild(td);
-        tr.appendChild(td1);
-        tr.appendChild(td2);
-        tr.appendChild(td3);
-        tr.appendChild(td4);
-        tableBody.appendChild(tr);
-      }
+   tableBody.innerHTML +=`
+   <tr>
+    <td>${index + 1}</td>
+    <td>${item.itemName}</td>
+    <td>${item.size}</td>
+    <td>${item.UMO}</td>
+    <td>${item.quantity}</td>
+    </tr>
+
+   `
+  backdrop.style.display = 'none';
+
+ }
     });
   } else {
     toastify(`Sorry ${userValue} was not found please try some other words`);

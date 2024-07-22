@@ -463,10 +463,9 @@ border: 1px solid white;
 }
 
 @media only screen and (max-width:425px){
-    /* nav{
-        
-    }
-     */
+    
+    
+    
      #overlay{
         width: 90%;
         height: 400px;

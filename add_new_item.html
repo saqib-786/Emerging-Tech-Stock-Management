@@ -89,7 +89,7 @@
       <select name="" id="add_new_item">
         <option value="">Select Item Type First</option>
         <option value="PVC">PVC Item</option>
-        <option value="Bush">Bush</option>
+        <!-- <option value="Bush">Bush</option> -->
         <option value="RO">RO Item</option>
         <option value="Electrical">Electrical Items</option>
     </select>
@@ -123,19 +123,7 @@ entryType.addEventListener('change',function(){
                 <tr>
                     <td>SIZE</td>
                     <td>
-                    <select class='new-pvc' id="size" required>
-                        <option value="">Select Size</option>
-                        <option value='1/4'>1/4</option>
-                        <option value='1/4'>1/2</option>
-                        <option value='3/4'>3/4</option>
-                        <option value='1'>1</option>
-                        <option value='1.1/4'>1.1/4</option>
-                        <option value='1.5'>1.5</option>
-                        <option value='2'>2</option>
-                        <option value='3'>3</option>
-                        <option value='4'>4</option>
-                        
-                    </select>
+                     <input placeholder="Enter Item Size" type="text" class="new-pvc" id="size" />   
                     </td>
                     <td>QUANTITY</td>
                     <td><input placeholder='Enter quantity' class='new-pvc' id='quantity' required type="number"></td>
@@ -169,7 +157,7 @@ entryType.addEventListener('change',function(){
 
                 </tr>
             </table>
-            <input class='new-item-btn' onclick="addPVCItem();" type="submit">
+            <input class='new-item-btn' onclick="addNewStock('ROStock');" type="submit">
             </form>
             </div>
         `
@@ -181,68 +169,19 @@ entryType.addEventListener('change',function(){
             <table>
                 <tr>
                     <td> NAME</td>
-                    <td><input class='new-pvc' placeholder='Enter Item Name' /></td>
+                    <td><input id="item-name" requried class='new-pvc' placeholder='Enter Item Name' /></td>
                     <td>SIZE</td>
-                    <td><input class='new-pvc' placeholder='Enter Item Size' />
+                    <td><input id="size" requried class='new-pvc' placeholder='Enter Item Size' />
                 </tr>
                 <tr>
                     <td> QUANTITY</td>
-                    <td><input type="number" class='new-pvc' placeholder='Enter Item Quantity'/>
+                    <td><input id='quantity' requried type="number" class='new-pvc' placeholder='Enter Item Quantity'/>
                 </tr>
             </table>
-            <input class='new-item-btn' type='submit'/>
+            <input onclick="addNewStock('ElectricalStock');" class='new-item-btn' type='submit'/>
             </form>
             </div>
         `
-    }else if(entryType.value === 'Bush'){
-        container.innerHTML = `<div class='new-item-container'>
-            <h2>Add Bush to PVC Items</h2>
-           <form onsubmit="event.preventDefault();" id="form">
-            <table>
-                <tr>
-                    <td> NAME</td>
-                    <td><input class="new-pvc" id="item-name" placeholder="Enter Item Name" required></td>
-                    <td>SHEDULE</td>
-                    <td>
-                    <select class='new-pvc' id='shedule' required>
-                    <option value="">Shedule</option>    
-                    <option value="40">40</option>    
-                    <option value="80">80</option>    
-                    </select>
-                    </td>
-                </tr>
-          
-                <tr>
-                    <td>  SIZE</td>
-                    <td>
-                    <select class='new-pvc' id="size" required>
-                        <option value="">Select Size</option>
-                        <option value='3/4X1/2'>3/4X1/2</option>
-                        <option value='1X1/4'>1X1/4</option>
-                        <option value='1X1/2'>1X1/2</option>
-                        <option value='1X1.1/4'>1X1.1/4</option>
-                        <option value='1.5X1/2'>1.5X1/2</option>
-                        <option value='1.5X1'>1.5X1</option>
-                        <option value='1.5X1.1/4'>1.5X1.1/4</option>
-                        <option value='2X1/2'>2X1/2</option>
-                        <option value='2X3/4'>2X3/4</option>
-                        <option value='2X1'>2X1</option>
-                        <option value='2X1'>2X1</option>
-                        <option value='2X1.1/4'>2X2X1.1/4</option>
-                        <option value='2X1.5'>2X1.5</option>
-                        <option value='3X2'>3X2</option>
-                        <option value='4X3'>4X3</option>
-                    </select>
-                    </td>
-                    <td>QUANTITY</td>
-                    <td><input placeholder='Enter quantity' class='new-pvc' id='quantity' required type="number"></td>
-                </tr>
-                
-            </table>
-            <input class='new-item-btn' onclick="addPVCItem();" type="submit">
-            </form>
-            </div>`
-
     }
         
     
@@ -279,7 +218,7 @@ function addPVCItem(){
                 toastify(err)
             }
             if(matchFound === false){
-            if(confirm('Are you really want to add this item to stock')){
+            if(confirm(`Are you really want to add ${itemName.value}  to stock`)){
                 let id = snapshot.val().length + 1;
                 let key = snapshot.val().length;
                 let obj = {
@@ -291,12 +230,75 @@ function addPVCItem(){
 
                 }
                 firebase.database().ref('PVCStock/' + key).set(obj);
+                toastify('Success');
+                setTimeout(()=>{
+                itemName.value = '';
+                 quantity.value = '' ;
+                 itemShedule.value = '';
+                size.value = '';
+
+                },1000)
             }                
             }
         })
         
             
 };
+}
+function addNewStock(ref){
+    let itemName = document.getElementById('item-name');
+    let size = document.getElementById('size');
+    let quantity = document.getElementById('quantity');
+    if(itemName.value === ''){
+        toastify('Please Enter the Item Name first!');
+    }
+    else if(size.value === ''){
+        toastify('Please Enter the Size first!')
+    }else if(quantity.value === ''){
+        toastify('Please Enter the Quantity first!');
+    }else{
+        firebase.database().ref(ref).once('value', async function(snapshot){
+            let response = snapshot.val();
+            let matchFound = false;
+            try{
+                response.forEach((item)=>{
+                if(item.itemName === itemName.value && item.size === size.value){
+                    matchFound = true;
+                    throw new Error(`${itemName.value} by size ${size.value} already exists!`);
+                    
+                    
+                }
+            });
+            }catch(err){
+                toastify(err)
+            }
+            if(matchFound === false){
+            if(confirm(`Are you really want to add ${itemName.value}  to stock`)){
+                let id = snapshot.val().length + 1;
+                let key = snapshot.val().length;
+                let obj = {
+                    id: id,
+                    itemName: itemName.value,
+                    quantity:quantity.value,
+                    size: size.value,
+                    UMO:"NOS"
+
+                }
+                firebase.database().ref(`${ref}/` + key).set(obj);
+                toastify('Success');
+                setTimeout(()=>{
+                itemName.value = '';
+                quantity.value = '' ;
+                size.value = '';
+
+                },1000)
+            }                
+            }
+        })
+        
+            
+};
+
 }
 function toastify(val){
     Toastify({

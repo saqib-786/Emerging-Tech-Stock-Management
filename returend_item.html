@@ -33,6 +33,12 @@
     </script>
 </head>
 <body>
+    <div id="backdrop">
+        <div>
+            <!-- <h2>Please Wait</h2> -->
+            <img id="loading-img" src="./Images/loading (2).gif" alt="">
+        </div>
+    </div>
     <nav id="nav">
         <div>
             <img width="60px" height="60px" src="./Images/Emerging_tech_logo-removebg-preview.png" alt="emerging tech logo">
@@ -76,6 +82,13 @@
            </div>
         </div>
     </nav>
+    <div id="search">
+        <h2>Items Details</h2>
+        
+       <!-- <div id="search-container">
+        
+       </div> -->
+     </div>
     <table id="issue-table">
         <thead id="table-head"></thead>
         <tbody id="table-body"></tbody>
@@ -83,10 +96,17 @@
 </body>
 </html>
 <script>
-    firebase.database().ref('returendStock').once('value', async function(snapshot){
-        let returendItemKey = JSON.parse(localStorage.getItem('returendItemKey'));
+    window.addEventListener('load',renderData())
+
+    function renderData(){
+        let backdrop = document.getElementById('backdrop');
         let tableHead = document.getElementById('table-head');
         let tableBody = document.getElementById('table-body');
+        tableHead.innerHTML = '';
+        tableBody.innerHTML = '';
+        backdrop.style.display = 'flex';
+        firebase.database().ref('returendStock').once('value', async function(snapshot){
+        let returendItemKey = JSON.parse(localStorage.getItem('returendItemKey'));
         let headerArray = ['S NO', 'ITEM NAME','SIZE','SHEDULE','QUANTITY'];
         let tr = document.createElement('tr');
          headerArray.forEach((item)=>{
@@ -100,24 +120,33 @@
         Object.values(response).forEach((item)=>{
          let data =  Object.values(item).filter((val)=> val.id === returendItemKey);
          data.forEach((item,index)=>{
-            let tr = document.createElement('tr')
-
-            let td1 = document.createElement('td');
-            td1.innerText = index + 1;
-            let td2 = document.createElement('td');
-            td2.innerText = item.item;
-            let td3 = document.createElement('td');
-            td3.innerText = item.size;
-            let td4 = document.createElement('td');
-            td4.innerText = item.shedule;
-            let td5 = document.createElement('td');
-            td5.innerText = item.quantity
-            tr.appendChild(td1)
-            tr.appendChild(td2)
-            tr.appendChild(td3)
-            tr.appendChild(td4)
-            tr.appendChild(td5)
-            tableBody.appendChild(tr)
+            tableBody.innerHTML += `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${item.item}</td>
+                <td>${item.size}</td>
+                <td>${item.shedule}</td>
+                <td>${item.quantity}</td>
+            </tr>
+            `
+            backdrop.style.display = 'none';
+            // let tr = document.createElement('tr')
+            // let td1 = document.createElement('td');
+            // td1.innerText = index + 1;
+            // let td2 = document.createElement('td');
+            // td2.innerText = item.item;
+            // let td3 = document.createElement('td');
+            // td3.innerText = item.size;
+            // let td4 = document.createElement('td');
+            // td4.innerText = item.shedule;
+            // let td5 = document.createElement('td');
+            // td5.innerText = item.quantity
+            // tr.appendChild(td1)
+            // tr.appendChild(td2)
+            // tr.appendChild(td3)
+            // tr.appendChild(td4)
+            // tr.appendChild(td5)
+            // tableBody.appendChild(tr)
 
 
          });
@@ -127,5 +156,7 @@
        
         
     })
+    
+    }
     
 </script>
